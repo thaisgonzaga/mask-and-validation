@@ -1,0 +1,4 @@
+/target/
+
+# Para arquivos Java compilados
+*.class

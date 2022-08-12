@@ -1,6 +1,23 @@
 # ProjetoDacc Maven With Db
+- Este é projeto que viemos desenvolvendo na disciplina de Orientação e Objetos
+- Agora vamos melhorá-lo com uma melhor estruturação da arquitetura, banco de dados e framework JPA-Hibernate
+- Como é um projeto didático:
+- O cadastro de Professor está usando arquivo texto
+- O cadastro de Aluno está usando banco de dados sqlite
+- O cadastro de Funcionario está usando JPA-Hibernate
+-- Por comodidade não coloquei Funcionario como descendente de Pessoa
 
+### Padrão MVC
+- Como estamos utilizando o padrão MVC, é possível perceber como as camadas VIEW e CONTROLLER permanecem 
+inalteradas nas diferentes abordagens
 
+### Padrão Factory
+- Está sendo utilizado tanto na conexão com o DB Sqlite 
+- Quanto na criação EntityManager do Hibernate
+
+### Herança, interface e polimorfismo
+- Estes padrões estão sendo utilizados na camada MODEL, especificamente DAO
+- Exatamente para que você veja como as camadas VIEW e CONTROLLER permanecem intáctas quando se tem uma camada MODEL padronizada;
 
 ## Getting started
 

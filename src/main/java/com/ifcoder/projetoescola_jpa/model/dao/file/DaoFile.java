@@ -5,7 +5,6 @@
  */
 package com.ifcoder.projetoescola_jpa.model.dao.file;
 
-import com.ifcoder.projetoescola_jpa.model.Professor;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;

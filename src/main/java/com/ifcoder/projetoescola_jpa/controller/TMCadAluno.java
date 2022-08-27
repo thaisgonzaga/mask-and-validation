@@ -74,7 +74,7 @@ public class TMCadAluno extends AbstractTableModel {
         
         switch (column) {
             case COL_NOME:
-                return "Name";
+                return "Nome";
             case COL_SEXO:
                 return "Sexo";
             case COL_IDADE:

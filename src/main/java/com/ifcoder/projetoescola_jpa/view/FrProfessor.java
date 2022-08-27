@@ -22,8 +22,7 @@ public class FrProfessor extends javax.swing.JFrame {
     String cpfProfessorEditando;    
 
     public FrProfessor(JFrame telaQueChamou) {
-        this.telaAnterior = telaQueChamou;
-        
+        this.telaAnterior = telaQueChamou;        
         profController = new ProfessorController();
         cpfProfessorEditando = "-";
         
@@ -48,7 +47,7 @@ public class FrProfessor extends javax.swing.JFrame {
         edtCPF.setText("");
     }
 
-    public void objetoParaCampos(Professor p) {
+    public void preencherFormulario(Professor p) {
         edtNome.setText(p.getNome());
         edtSexo.setText(p.getSexo() + "");
         edtIdade.setText(p.getIdade() + "");
@@ -271,7 +270,7 @@ public class FrProfessor extends javax.swing.JFrame {
         } else {
             this.limparCampos();
             this.habilitarCampos(true);
-            this.objetoParaCampos(profEditando);
+            this.preencherFormulario(profEditando);
             this.cpfProfessorEditando = profEditando.getCpf();
         }
     }//GEN-LAST:event_btnEditarActionPerformed

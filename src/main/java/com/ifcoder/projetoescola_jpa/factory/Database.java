@@ -32,7 +32,7 @@ public class Database {
         this.entityManager = factory.createEntityManager();
     }
     
-    public EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {        
         return entityManager;
     }
     

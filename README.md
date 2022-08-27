@@ -1,11 +1,26 @@
 # ProjetoDacc Maven With Db
-- Este é projeto que viemos desenvolvendo na disciplina de Orientação e Objetos
-- Agora vamos melhorá-lo com uma melhor estruturação da arquitetura, banco de dados e framework JPA-Hibernate
+- Este projeto é continuação da disciplina de Orientação e Objetos
+- Agora vamos melhorá-lo com:
+    - Projeto Maven
+    - Estruturação da arquitetura
+    - Banco de dados
+    - Framework JPA-Hibernate
+
+### Maven
+- Por ser um projeto Maven (gerenciador de dependencias atual) fique atento a algumas configurações no arquivo POM.xml
+- Todas as dependencias que seu projeto serão colocadas neste arquivo XML 
+- Caso necessite de alguma outra busque no repositorio central 
+- https://search.maven.org/ ou https://mvnrepository.com/
+
+### Projeto Escola
 - Como é um projeto didático:
-- O cadastro de Professor está usando arquivo texto
-- O cadastro de Aluno está usando banco de dados sqlite
-- O cadastro de Funcionario está usando JPA-Hibernate
--- Por comodidade não coloquei Funcionario como descendente de Pessoa
+- O cadastro de Professor:
+    - Está usando arquivo texto
+- O cadastro de Aluno: 
+    - Está usando banco de dados sqlite
+- O cadastro de Funcionario:
+    - Está usando JPA-Hibernate
+    - Por comodidade não coloquei Funcionario como descendente de Pessoa
 
 ### Padrão MVC
 - Como estamos utilizando o padrão MVC, é possível perceber como as camadas VIEW e CONTROLLER permanecem 
@@ -16,7 +31,7 @@ inalteradas nas diferentes abordagens
 - Quanto na criação EntityManager do Hibernate
 
 ### Herança, interface e polimorfismo
-- Estes padrões estão sendo utilizados na camada MODEL, especificamente DAO
+- Estes conceitos estão sendo utilizados na camada MODEL, especificamente DAO
 - Exatamente para que você veja como as camadas VIEW e CONTROLLER permanecem intáctas quando se tem uma camada MODEL padronizada;
 
 ## Getting started

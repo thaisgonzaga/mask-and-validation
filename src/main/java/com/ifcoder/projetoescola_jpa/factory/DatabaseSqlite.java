@@ -14,37 +14,36 @@ public class DatabaseSqlite {
     public static DatabaseSqlite getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new DatabaseSqlite();
+            System.err.println("Conexao criada.");
+        }else{
+            System.err.println("Conexao ja existe apenas retornei.");
         }
 
         return INSTANCE;
     }
 
     private DatabaseSqlite() {
-        this.getConnection();
-    }
-
-    public void getConnection() {
-        try {
+        try {        
             Class.forName("org.sqlite.JDBC");
-            conexao = DriverManager.getConnection("jdbc:sqlite:dbEscola.sqlite");
+            this.conexao = DriverManager.getConnection("jdbc:sqlite:dbEscola.sqlite");
+        
         } catch (ClassNotFoundException ex) {
             System.err.println("Error - Abrir conexão." + ex.toString());            
         } catch (SQLException ex) {            
             System.err.println("Error - Ao abrir conexão." + ex.toString());
-        }        
-    }
+        }  
+    }    
        
-    /**
-     * @return the conexao
-     */
+    public static Connection conectar(){
+        return DatabaseSqlite.getInstance().getConexao();
+    }
+      
+    
     public Connection getConexao() {
-        return conexao;
+        return this.conexao;
     }
     
-     public void fechar() throws SQLException {
-        if (getConexao() != null) {
-            getConexao().close();
-        }
-    }
+    
+
 
 }

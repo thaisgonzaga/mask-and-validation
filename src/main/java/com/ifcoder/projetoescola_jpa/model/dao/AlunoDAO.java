@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ifcoder.projetoescola_jpa.model.dao.file;
+package com.ifcoder.projetoescola_jpa.model.dao;
 
-import com.ifcoder.projetoescola_jpa.factory.DatabaseSqlite;
+import com.ifcoder.projetoescola_jpa.factory.Persistencia;
 import com.ifcoder.projetoescola_jpa.model.Aluno;
 import java.util.ArrayList;
 import java.util.List;
-import com.ifcoder.projetoescola_jpa.model.dao.IDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,21 +21,24 @@ import java.sql.SQLException;
 public class AlunoDAO implements IDao{
     
     //private List<Object> lst; //só é usado quando salvamos no arquivo texto
-    protected Connection connection;   
+    protected Connection connection; 
+    private PreparedStatement stmt;
 
     public AlunoDAO() {
-        this.connection = DatabaseSqlite.getInstance().getConexao();        
+       // this.connection = Persistencia.getInstance().getConexao();  
+       
     }            
     
     @Override
     public void save(Object obj){     
         Aluno aluno = (Aluno) obj;
         
-        String sql = "INSERT INTO "
+        String sql = " INSERT INTO "
                 + " aluno(nome, sexo, idade, matricula, anoIngresso) "
-                + " VALUES(?,?,?,?,?)";
+                + " VALUES(?,?,?,?,?) ";
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            connection = Persistencia.getConnection();
+            stmt = connection.prepareStatement(sql);
             
             //preencher cada ? com o campo adequado
             stmt.setString(1, aluno.getNome());
@@ -49,7 +51,10 @@ public class AlunoDAO implements IDao{
             stmt.close();
         } catch (SQLException u) {
             throw new RuntimeException(u);
-        }      
+        } finally{
+            Persistencia.closeConnection();
+            //connection.close();
+        }   
     }            
     
     public void update(Object obj) {
@@ -59,7 +64,9 @@ public class AlunoDAO implements IDao{
                 + " SET nome=?, sexo=?, idade=?, matricula=?, anoIngresso=? "
                 + " WHERE id = ?";
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            Connection conn = Persistencia.getConnection();
+            conn.createStatement();
+            stmt = conn.prepareStatement(sql);
             
             //preencher cada ? com o campo adequado
             stmt.setString(1, aluno.getNome());
@@ -75,16 +82,18 @@ public class AlunoDAO implements IDao{
             stmt.close();
         } catch (SQLException u) {
             throw new RuntimeException(u);
-        }     
+        }   finally{
+            Persistencia.closeConnection();           
+        }    
     }
     
     @Override
     public List<Object> findAll() {
         List<Object> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM aluno ORDER BY upper(nome)";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        String sql = " SELECT * FROM aluno ORDER BY upper(nome) ";
+        try {            
+            stmt = Persistencia.getConnection().prepareStatement(sql);
             ResultSet resultset = stmt.executeQuery();
             while (resultset.next()) {
                 Aluno aluno = new Aluno(
@@ -100,7 +109,9 @@ public class AlunoDAO implements IDao{
             stmt.close();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
-        }
+        }finally{
+            Persistencia.closeConnection();            
+        }  
 
         return list;
     }
@@ -110,9 +121,10 @@ public class AlunoDAO implements IDao{
     public Object find(Object obj) {
         Aluno aluno = (Aluno) obj;
         
-        String sql = "SELECT * FROM aluno WHERE id = ? ";
+        String sql = " SELECT * FROM aluno WHERE id = ? ";
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt = Persistencia.getConnection().prepareStatement(sql);
             stmt.setInt(1, aluno.getId());
             
             ResultSet resultset = stmt.executeQuery();
@@ -131,7 +143,10 @@ public class AlunoDAO implements IDao{
             return a;
         } catch (SQLException u) {
             throw new RuntimeException(u);
-        }
+        }finally{
+            Persistencia.closeConnection();
+            //connection.close();
+        }  
         
     }
     
@@ -141,11 +156,12 @@ public class AlunoDAO implements IDao{
      * @return Referencia para o aluno na lstAluno
      */
     public Object findByMatricula(String matricula) {
-        String sql = "Select * FROM aluno as a WHERE a.matricula = ? ";
+        String sql = " Select * FROM aluno as a WHERE a.matricula = ? ";
 
         Aluno aluno = null;
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            connection = Persistencia.getConnection();
+            stmt = connection.prepareStatement(sql);
             //preenche a condição
             stmt.setString(1, matricula);
             
@@ -162,7 +178,10 @@ public class AlunoDAO implements IDao{
             stmt.close();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
-        }
+        }finally{
+            Persistencia.closeConnection();
+            //connection.close();
+        }  
         return aluno;
     }
     
@@ -179,9 +198,10 @@ public class AlunoDAO implements IDao{
     public boolean delete(Object obj) {
         Aluno aluno = (Aluno) obj;
         
-        String sql = "DELETE FROM aluno WHERE id = ?";
+        String sql = " DELETE FROM aluno WHERE id = ? ";
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            connection = Persistencia.getConnection();
+            stmt = connection.prepareStatement(sql);
             //preenche a condição
             stmt.setLong(1, aluno.getId());
             
@@ -190,6 +210,8 @@ public class AlunoDAO implements IDao{
             return true;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
+        }finally{
+            Persistencia.closeConnection();
         }
         
     }

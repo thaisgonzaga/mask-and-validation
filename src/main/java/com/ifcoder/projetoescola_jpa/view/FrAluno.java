@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import model.exceptions.AlunoException;
 import model.exceptions.ProfessorException;
 
 /**
@@ -32,7 +33,7 @@ public class FrAluno extends javax.swing.JFrame {
         idAlunoEditando = -1;
 
         initComponents();
-        this.addMaskOnFields();
+        this.adicionarMascaraNosCampos();
 
         this.habilitarCampos(false);
         this.limparCampos();
@@ -54,7 +55,7 @@ public class FrAluno extends javax.swing.JFrame {
         fEdtMatricula.setText("");
     }
 
-    public void addMaskOnFields() {
+    public void adicionarMascaraNosCampos() {
         try {
             MaskFormatter maskMatricula = new MaskFormatter("####-##");
             maskMatricula.install(fEdtMatricula);
@@ -73,7 +74,7 @@ public class FrAluno extends javax.swing.JFrame {
      *
      * @param a
      */
-    public void objetoParaCampos(Aluno a) {
+    public void preencherFormulario(Aluno a) {
         edtNome.setText(a.getNome());
         edtSexo.setText(a.getSexo() + "");
         edtIdade.setText(a.getIdade() + "");
@@ -251,12 +252,12 @@ public class FrAluno extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 115, Short.MAX_VALUE))
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(panFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -297,13 +298,14 @@ public class FrAluno extends javax.swing.JFrame {
             } else {
                 alunoController.cadastrarAluno(edtNome.getText(), edtSexo.getText(), edtIdade.getText(), fEdtMatricula.getText(), edtAno.getText());
             }
+            //Comando bastante importante
             this.idAlunoEditando = -1;
 
             alunoController.atualizarTabela(grdAlunos);
 
             this.habilitarCampos(false);
             this.limparCampos();
-        } catch (ProfessorException e) {
+        } catch (AlunoException e) {
             System.err.println(e.getMessage());
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -317,23 +319,23 @@ public class FrAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        Aluno alunoEditando = (Aluno) this.getObjectSelectOnGrid();
+        Aluno alunoExcluido = (Aluno) this.getObjetoSelecionadoNaGrid();
 
-        if (alunoEditando == null)
+        if (alunoExcluido == null)
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
         else {
 
             int response = JOptionPane.showConfirmDialog(null,
                     "Deseja exlcuir o Aluno  \n("
-                    + alunoEditando.getNome() + ", "
-                    + alunoEditando.getMatricula() + ") ?",
+                    + alunoExcluido.getNome() + ", "
+                    + alunoExcluido.getMatricula() + ") ?",
                     "Confirmar exclusão",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.OK_OPTION) {
 
                 try {
-                    alunoController.excluirAluno(alunoEditando);
+                    alunoController.excluirAluno(alunoExcluido);
 
                     alunoController.atualizarTabela(grdAlunos);
                     JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso!");
@@ -345,14 +347,14 @@ public class FrAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        Aluno alunoEditando = (Aluno) this.getObjectSelectOnGrid();
+        Aluno alunoEditando = (Aluno) this.getObjetoSelecionadoNaGrid();
 
         if (alunoEditando == null)
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
         else {
             this.limparCampos();
             this.habilitarCampos(true);
-            this.objetoParaCampos(alunoEditando);
+            this.preencherFormulario(alunoEditando);
             this.idAlunoEditando = alunoEditando.getId();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -365,7 +367,7 @@ public class FrAluno extends javax.swing.JFrame {
      *
      * @return
      */
-    private Object getObjectSelectOnGrid() {
+    private Object getObjetoSelecionadoNaGrid() {
         int rowCliked = grdAlunos.getSelectedRow();
         Object obj = null;
         if (rowCliked >= 0) {

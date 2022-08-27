@@ -33,8 +33,6 @@ public class Funcionario implements Serializable {
         this.id = -1;
         this.nome = "";
         this.email = "";
-    }
-    
-    
+    }        
 
 }

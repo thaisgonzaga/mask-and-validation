@@ -6,7 +6,7 @@
 package com.ifcoder.projetoescola_jpa.controller;
 
 import com.ifcoder.projetoescola_jpa.model.Aluno;
-import com.ifcoder.projetoescola_jpa.model.dao.file.AlunoDAO;
+import com.ifcoder.projetoescola_jpa.model.dao.AlunoDAO;
 import com.ifcoder.projetoescola_jpa.model.valid.ValidateAluno;
 import java.util.List;
 import javax.swing.JTable;
@@ -49,7 +49,9 @@ public class AlunoController {
 
     public void atualizarTabela(JTable grd) {
         List<Object> lst = repositorio.findAll();
-        Util.jTableShow(grd, new TMCadAluno(lst), null);
+        
+        TMCadAluno tmAluno = new TMCadAluno(lst);
+        grd.setModel(tmAluno);        
     }
 
     public void excluirAluno(Aluno aluno) {

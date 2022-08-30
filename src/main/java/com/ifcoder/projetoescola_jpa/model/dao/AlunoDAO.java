@@ -22,7 +22,7 @@ public class AlunoDAO implements IDao{
     
     //private List<Object> lst; //só é usado quando salvamos no arquivo texto
     protected Connection connection; 
-    private PreparedStatement stmt;
+    private PreparedStatement statement;
 
     public AlunoDAO() {
        // this.connection = Persistencia.getInstance().getConexao();  
@@ -38,22 +38,21 @@ public class AlunoDAO implements IDao{
                 + " VALUES(?,?,?,?,?) ";
         try {
             connection = Persistencia.getConnection();
-            stmt = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
             
             //preencher cada ? com o campo adequado
-            stmt.setString(1, aluno.getNome());
-            stmt.setString(2, aluno.getSexo()+"");
-            stmt.setInt(3, aluno.getIdade());
-            stmt.setString(4, aluno.getMatricula());
-            stmt.setInt(5, aluno.getAnoIngresso());
+            statement.setString(1, aluno.getNome());
+            statement.setString(2, aluno.getSexo()+"");
+            statement.setInt(3, aluno.getIdade());
+            statement.setString(4, aluno.getMatricula());
+            statement.setInt(5, aluno.getAnoIngresso());
             
-            stmt.execute();
-            stmt.close();
+            statement.execute();
+            statement.close();
         } catch (SQLException u) {
             throw new RuntimeException(u);
         } finally{
-            Persistencia.closeConnection();
-            //connection.close();
+            Persistencia.closeConnection();            
         }   
     }            
     
@@ -64,22 +63,21 @@ public class AlunoDAO implements IDao{
                 + " SET nome=?, sexo=?, idade=?, matricula=?, anoIngresso=? "
                 + " WHERE id = ?";
         try {
-            Connection conn = Persistencia.getConnection();
-            conn.createStatement();
-            stmt = conn.prepareStatement(sql);
+            connection = Persistencia.getConnection();
+            statement = connection.prepareStatement(sql);
             
             //preencher cada ? com o campo adequado
-            stmt.setString(1, aluno.getNome());
-            stmt.setString(2, aluno.getSexo()+"");
-            stmt.setInt(3, aluno.getIdade());
-            stmt.setString(4, aluno.getMatricula());
-            stmt.setInt(5, aluno.getAnoIngresso());
+            statement.setString(1, aluno.getNome());
+            statement.setString(2, aluno.getSexo()+"");
+            statement.setInt(3, aluno.getIdade());
+            statement.setString(4, aluno.getMatricula());
+            statement.setInt(5, aluno.getAnoIngresso());
             
             //preenche a condição do WHERE
-            stmt.setInt(6, aluno.getId());
+            statement.setInt(6, aluno.getId());
             
-            stmt.execute();
-            stmt.close();
+            statement.execute();
+            statement.close();
         } catch (SQLException u) {
             throw new RuntimeException(u);
         }   finally{
@@ -93,8 +91,8 @@ public class AlunoDAO implements IDao{
 
         String sql = " SELECT * FROM aluno ORDER BY upper(nome) ";
         try {            
-            stmt = Persistencia.getConnection().prepareStatement(sql);
-            ResultSet resultset = stmt.executeQuery();
+            statement = Persistencia.getConnection().prepareStatement(sql);
+            ResultSet resultset = statement.executeQuery();
             while (resultset.next()) {
                 Aluno aluno = new Aluno(
                         resultset.getInt(1),
@@ -106,7 +104,7 @@ public class AlunoDAO implements IDao{
 
                 list.add(aluno);
             }
-            stmt.close();
+            statement.close();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }finally{
@@ -124,10 +122,10 @@ public class AlunoDAO implements IDao{
         String sql = " SELECT * FROM aluno WHERE id = ? ";
         try {
             
-            stmt = Persistencia.getConnection().prepareStatement(sql);
-            stmt.setInt(1, aluno.getId());
+            statement = Persistencia.getConnection().prepareStatement(sql);
+            statement.setInt(1, aluno.getId());
             
-            ResultSet resultset = stmt.executeQuery();
+            ResultSet resultset = statement.executeQuery();
             
             Aluno a = null;
             while (resultset.next()) {
@@ -139,7 +137,7 @@ public class AlunoDAO implements IDao{
                         resultset.getString(5),
                         resultset.getInt(6));               
             }
-            stmt.close();
+            statement.close();
             return a;
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -161,11 +159,11 @@ public class AlunoDAO implements IDao{
         Aluno aluno = null;
         try {
             connection = Persistencia.getConnection();
-            stmt = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
             //preenche a condição
-            stmt.setString(1, matricula);
+            statement.setString(1, matricula);
             
-            ResultSet resultset = stmt.executeQuery();
+            ResultSet resultset = statement.executeQuery();
             while (resultset.next()) {
                 aluno = new Aluno(
                         resultset.getInt(1),
@@ -175,7 +173,7 @@ public class AlunoDAO implements IDao{
                         resultset.getString(5),
                         resultset.getInt(6));
             }
-            stmt.close();
+            statement.close();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }finally{
@@ -201,12 +199,12 @@ public class AlunoDAO implements IDao{
         String sql = " DELETE FROM aluno WHERE id = ? ";
         try {
             connection = Persistencia.getConnection();
-            stmt = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
             //preenche a condição
-            stmt.setLong(1, aluno.getId());
+            statement.setLong(1, aluno.getId());
             
-            stmt.execute();
-            stmt.close();
+            statement.execute();
+            statement.close();
             return true;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);

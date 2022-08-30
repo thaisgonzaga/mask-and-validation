@@ -7,6 +7,8 @@ package com.ifcoder.projetoescola_jpa.controller;
 
 import com.ifcoder.projetoescola_jpa.model.Professor;
 import com.ifcoder.projetoescola_jpa.model.dao.file.ProfessorDAO;
+import com.ifcoder.projetoescola_jpa.model.valid.ValidatePessoaFisica;
+import com.ifcoder.projetoescola_jpa.model.valid.ValidateProfessor;
 import java.util.List;
 import model.exceptions.ProfessorException;
 
@@ -24,7 +26,9 @@ public class ProfessorController {
     }
 
     public void cadastrarProfessor(String nome, String sexo, String idade, String cpf) {
-        Professor novoProfessor = validacaoVazio(nome, sexo, idade, cpf);
+        ValidateProfessor valid = new ValidateProfessor();
+        Professor novoProfessor = valid.validacao(nome, sexo, idade, cpf);
+        
 
         if (repositorio.findByCpf(cpf) == null) {
             repositorio.save(novoProfessor);
@@ -34,7 +38,9 @@ public class ProfessorController {
     }
 
     public void atualizarProfessor(String cpfOriginal, String nome, String sexo, String idade, String cpf) {
-        Professor novoProfessor = validacaoVazio(nome, sexo, idade, cpf);  
+        ValidateProfessor valid = new ValidateProfessor();
+        Professor novoProfessor = valid.validacao(nome, sexo, idade, cpf);
+        
         repositorio.update(cpfOriginal, novoProfessor);
     }
 
@@ -63,31 +69,6 @@ public class ProfessorController {
         return listagemProfessores;
     }
     
-    private Professor validacaoVazio(String nome, String sexo, String idade, String cpf){
-        Professor p = new Professor();
-        if (nome.isEmpty())
-            throw new ProfessorException("Error - Campo vazio: 'nome'.");
-        p.setNome(nome);
-        
-        if (sexo.isEmpty()) 
-            throw new ProfessorException("Error - Campo vazio: 'sexo'.");                
-        p.setSexo(sexo.charAt(0));        
-
-        int idadeInt = 0;
-        if (idade.isEmpty())
-            throw new ProfessorException("Error - Campo vazio: 'idade'.");
-        
-        if(!idade.matches("[0-9]*"))
-            throw new ProfessorException("Error - Valor inválido no campo 'idade'.");
-        
-        idadeInt = Integer.parseInt(idade);
-        p.setIdade(idadeInt);        
-
-        if(cpf.isEmpty())
-            throw new ProfessorException("Error - Campo vazio: 'cpf'.");
-        p.setCpf(cpf);
-        
-        return p;
-    }
+    
 
 }

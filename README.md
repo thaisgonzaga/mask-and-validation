@@ -34,6 +34,12 @@ inalteradas nas diferentes abordagens
 - Estes conceitos estão sendo utilizados na camada MODEL, especificamente DAO
 - Exatamente para que você veja como as camadas VIEW e CONTROLLER permanecem intáctas quando se tem uma camada MODEL padronizada;
 
+### Hibernate e Mysql
+- O hibernate está configurado para funcionar com classe funcionario.
+- Este é um exemplo didático
+- Atenção: Neste ponto estamos usando o banco de dados Mysql
+	- Aqui o banco de dados foi alterado apenas por questões didáticas. Para que o aluno veja uma outra forma diferente de fazer a mesma coisa.
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.

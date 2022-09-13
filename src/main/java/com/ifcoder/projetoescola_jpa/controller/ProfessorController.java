@@ -7,9 +7,7 @@ package com.ifcoder.projetoescola_jpa.controller;
 
 import com.ifcoder.projetoescola_jpa.model.Professor;
 import com.ifcoder.projetoescola_jpa.model.dao.file.ProfessorDAO;
-import com.ifcoder.projetoescola_jpa.model.valid.ValidatePessoaFisica;
 import com.ifcoder.projetoescola_jpa.model.valid.ValidateProfessor;
-import java.util.List;
 import model.exceptions.ProfessorException;
 
 /**

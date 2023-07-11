@@ -20,7 +20,7 @@ public class FuncionarioController {
     private FuncionarioDAO repositorio;
 
     public FuncionarioController() {
-        repositorio = new FuncionarioDAO();
+        repositorio = new FuncionarioDAO();        
     }
 
     public void cadastrarFuncionario(String nome, String email) {
@@ -38,7 +38,7 @@ public class FuncionarioController {
         ValidateFuncionario valid = new ValidateFuncionario();
         Funcionario novoFuncionario = valid.validaCamposEntrada(nome, email);
         novoFuncionario.setId(idFuncionario);
-        repositorio.save(novoFuncionario);
+        repositorio.update(novoFuncionario);
     }    
 
     public void atualizarTabela(JTable grd) {

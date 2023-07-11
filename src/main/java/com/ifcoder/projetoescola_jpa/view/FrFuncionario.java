@@ -7,7 +7,6 @@ package com.ifcoder.projetoescola_jpa.view;
 
 import com.ifcoder.projetoescola_jpa.controller.FuncionarioController;
 import com.ifcoder.projetoescola_jpa.model.Funcionario;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.exceptions.ProfessorException;
 
@@ -15,14 +14,13 @@ import model.exceptions.ProfessorException;
  *
  * @author joserui
  */
-public class FrFuncionario extends javax.swing.JFrame {
+public class FrFuncionario extends javax.swing.JDialog {
 
-    JFrame telaAnterior;
     FuncionarioController funcionarioController;
     int idFuncionarioEditando;
 
-    public FrFuncionario(JFrame telaQueChamou) {
-        this.telaAnterior = telaQueChamou;
+    public FrFuncionario(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         
         funcionarioController = new FuncionarioController();
         idFuncionarioEditando = -1;
@@ -89,11 +87,7 @@ public class FrFuncionario extends javax.swing.JFrame {
         grdAlunos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
+        setTitle("Usando JPA-Hibernate");
 
         jLabel1.setFont(new java.awt.Font("Fira Sans", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -312,10 +306,6 @@ public class FrFuncionario extends javax.swing.JFrame {
             btnEditarActionPerformed(null);
         }
     }//GEN-LAST:event_grdAlunosMouseClicked
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        this.telaAnterior.setVisible(true);
-    }//GEN-LAST:event_formWindowClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

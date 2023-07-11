@@ -1,7 +1,8 @@
 package com.ifcoder.projetoescola_jpa.model.dao.jpa;
 
-import com.ifcoder.projetoescola_jpa.factory.Database;
+import com.ifcoder.projetoescola_jpa.factory.DatabaseJPA;
 import com.ifcoder.projetoescola_jpa.model.Funcionario;
+import com.ifcoder.projetoescola_jpa.model.dao.IDao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -10,76 +11,106 @@ import javax.persistence.Query;
  *
  * @author jose
  */
-public class FuncionarioDAO {
+public class FuncionarioDAO implements IDao {
 
-    EntityManager entityManager;
+    private EntityManager entityManager;
     
-    Query qry;
-    String sql;
+    private Query qry;
+    private String jpql;
 
     public FuncionarioDAO() {
-        entityManager = Database.getInstance().getEntityManager();
+        
     }
 
-    public void save(Funcionario funcionario) {
+    @Override
+    public void save(Object obj) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        
+        this.entityManager.getTransaction().begin();       
+        this.entityManager.persist(obj);                    
+        this.entityManager.getTransaction().commit();        
+        
+        this.entityManager.close();
+    }
+    
+    public void update(Object obj) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        
+        this.entityManager.getTransaction().begin();       
+        this.entityManager.merge(obj);                    
+        this.entityManager.getTransaction().commit();     
+        
+        this.entityManager.close();
+    }
+    
+
+    public boolean delete(Object obj) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+//        this.entityManager.getTransaction().begin();
+//        this.entityManager.remove(obj);
+//        this.entityManager.getTransaction().commit();                
+        
+        //outra forma usando JPQL. 
+        Funcionario funcionario = (Funcionario) obj;
         this.entityManager.getTransaction().begin();
-        if (funcionario != null && funcionario.getId() > 0) {
-            this.entityManager.merge(funcionario);
-        } else {
-            this.entityManager.persist(funcionario);
-        }
+        qry = this.entityManager.createQuery("DELETE FROM Funcionario WHERE id=:id ");
+        qry.setParameter("id", funcionario.getId());
+        qry.executeUpdate(); //Obrigatorio o executeUpdate!
         this.entityManager.getTransaction().commit();
+        
+        this.entityManager.close();
+        return true;
     }
 
-    public void delete(Funcionario funcionario) {
-        this.entityManager.getTransaction().begin();
-        this.entityManager.remove(funcionario);
-        this.entityManager.getTransaction().commit();
+    @Override
+    public Object find(Object obj) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        
+        Funcionario funcionario = (Funcionario) obj;
+        
+        //Lembrando que ao usar o find do JPA-Hibernate ele faz o cache pra gente automaticamente
+        //E se estivéssemos utilizando algum tipo de relacionamento ele faria a estratégia LAZY e EAGER
+        Funcionario f = this.entityManager.find(Funcionario.class, funcionario.getId());
+        
+        this.entityManager.close();
+        
+        return f;
     }
 
-    public Funcionario find(int id) {
-        //Está é um HQL (Hibernate Query Language)
-        sql = " SELECT f "
-                + " FROM Funcionario "
-                + " WHERE id = :id ";
+    public List<Object> findAll() {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        
+        jpql = " SELECT f "
+             + " FROM Funcionario f ";
 
-        qry = this.entityManager.createQuery(sql);
-        qry.setParameter("id", id);
+        qry = this.entityManager.createQuery(jpql);
         
         List lst = qry.getResultList();
-        if (lst.isEmpty()) {
-            return null;
-        } else {
-            return (Funcionario) lst.get(0);
-        }
-    }
-
-    public List<Funcionario> findAll() {
-        //Está é um HQL (Hibernate Query Language)
-        sql = " SELECT f "
-                + " FROM Funcionario f ";
-
-        qry = this.entityManager.createQuery(sql);
         
-        List lst = qry.getResultList();
-        return (List<Funcionario>) lst;
+        this.entityManager.close();
+        return (List<Object>) lst;
+                
     }
 
-    public Funcionario findByEmail(String email) {
-        //Está é um HQL (Hibernate Query Language)
-        sql = " SELECT f "
-                + " FROM Funcionario "
-                + " WHERE email like :email ";
-        qry = this.entityManager.createQuery(sql);
+    public Funcionario findByEmail(String email) { 
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        
+        jpql = " SELECT f "
+             + " FROM Funcionario f "
+             + " WHERE f.email like :email ";
+        qry = this.entityManager.createQuery(jpql);
         qry.setParameter("email", email);
         
         List lst = qry.getResultList();
 
+        this.entityManager.close();
+        
         if (lst.isEmpty()) {
             return null;
         } else {
             return (Funcionario) lst.get(0);
-        }
-    }
+        }                
+    }    
+   
 
 }

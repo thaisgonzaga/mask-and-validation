@@ -6,15 +6,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class Database {
+public class DatabaseJPA {
+    
+    private EntityManagerFactory factory;
 
-    private EntityManager entityManager;
+    private static DatabaseJPA INSTANCE = null;
 
-    private static Database INSTANCE = null;
-
-    public static Database getInstance() {
+    public static DatabaseJPA getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new Database();
+            INSTANCE = new DatabaseJPA();
         }
 
         return INSTANCE;
@@ -27,13 +27,16 @@ public class Database {
      * - O método getInstance() gerencia a regra SINGLETON, que permite apenas 
      * uma instancia do objeto Database
      */
-    private Database() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("exemplo-jpa");
-        this.entityManager = factory.createEntityManager();
+    private DatabaseJPA() {
+        factory = Persistence.createEntityManagerFactory("exemplo-jpa");        
     }
     
     public EntityManager getEntityManager() {        
-        return entityManager;
+        return factory.createEntityManager();
+    }
+    
+    public void closeFactory(){
+        this.factory.close();
     }
     
 }

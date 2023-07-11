@@ -15,12 +15,12 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TMCadFuncionario extends AbstractTableModel {
 
-    private List<Funcionario> lista;
+    private List<Object> lista;
     
     private final int COL_NOME = 0;   
     private final int COL_EMAIL = 1;    
 
-    public TMCadFuncionario(List<Funcionario> lstFuncionario) {        
+    public TMCadFuncionario(List<Object> lstFuncionario) {        
         lista = lstFuncionario;        
     }
 
@@ -40,7 +40,7 @@ public class TMCadFuncionario extends AbstractTableModel {
         if (lista.isEmpty()) {
             return aux;
         } else {
-            aux = lista.get(rowIndex);
+            aux = (Funcionario) lista.get(rowIndex);
 
             //verifica qual valor deve ser retornado
             switch (columnIndex) {

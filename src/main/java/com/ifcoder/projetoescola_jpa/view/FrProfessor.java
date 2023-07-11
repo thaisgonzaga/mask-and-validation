@@ -7,7 +7,6 @@ package com.ifcoder.projetoescola_jpa.view;
 
 import com.ifcoder.projetoescola_jpa.controller.ProfessorController;
 import com.ifcoder.projetoescola_jpa.model.Professor;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.exceptions.ProfessorException;
 
@@ -15,14 +14,14 @@ import model.exceptions.ProfessorException;
  *
  * @author joserui
  */
-public class FrProfessor extends javax.swing.JFrame {
+public class FrProfessor extends javax.swing.JDialog {
 
-    JFrame telaAnterior;
     ProfessorController profController;
     String cpfProfessorEditando;    
 
-    public FrProfessor(JFrame telaQueChamou) {
-        this.telaAnterior = telaQueChamou;        
+    public FrProfessor(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        
         profController = new ProfessorController();
         cpfProfessorEditando = "-";
         
@@ -81,11 +80,7 @@ public class FrProfessor extends javax.swing.JFrame {
         edtListagem = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
+        setTitle("Usando Arquivo de TEXTO");
 
         jLabel1.setFont(new java.awt.Font("Fira Sans", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -274,10 +269,6 @@ public class FrProfessor extends javax.swing.JFrame {
             this.cpfProfessorEditando = profEditando.getCpf();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        this.telaAnterior.setVisible(true);
-    }//GEN-LAST:event_formWindowClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

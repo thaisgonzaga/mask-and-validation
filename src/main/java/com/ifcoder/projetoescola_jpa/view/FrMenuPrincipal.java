@@ -83,21 +83,56 @@ public class FrMenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadProfessorActionPerformed
+        FrProfessor dlgCadProfessor = new FrProfessor(this, true);
+        
+        // Configura o posicionamento relativo, faz o dialgo aparecer na mesma tela que o pai(qdo estamos mais de uma tela)
+        dlgCadProfessor.setLocationRelativeTo(this);
+        dlgCadProfessor.setVisible(true);
+        
+        /* Usando JFrame.
+        Esta forma não é legal, dado que temos mais de uma aplicacao na barra de tarefas. 
+        Dê preferencia por fazer a dinamica de telas usando JDialog como acima.
+       
         FrProfessor telaProfessor = new FrProfessor(this);
         telaProfessor.setVisible(true);
         this.setVisible(false);
+        */
     }//GEN-LAST:event_btnCadProfessorActionPerformed
 
     private void btnCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadAlunoActionPerformed
+        FrAluno dlgCadAluno = new FrAluno(this, true);
+        
+        // Configura o posicionamento relativo, faz o dialgo aparecer na mesma tela que o pai(qdo estamos mais de uma tela)
+        dlgCadAluno.setLocationRelativeTo(this);
+        dlgCadAluno.setVisible(true);
+        
+        
+        /* Usando JFrame.
+        Esta forma não é legal, dado que temos mais de uma aplicacao na barra de tarefas. 
+        Dê preferencia por fazer a dinamica de telas usando JDialog como acima.
+        
         FrAluno telaAluno = new FrAluno(this);
         telaAluno.setVisible(true);
         this.setVisible(false);
+        */
+        
     }//GEN-LAST:event_btnCadAlunoActionPerformed
 
     private void btnCadFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadFuncionarioActionPerformed
+        FrFuncionario dlgCadFuncionario = new FrFuncionario(this, true);
+        
+        // Configura o posicionamento relativo, faz o dialgo aparecer na mesma tela que o pai(qdo estamos mais de uma tela)
+        dlgCadFuncionario.setLocationRelativeTo(this);
+        dlgCadFuncionario.setVisible(true);
+        
+        /* Usando JFrame.
+        Esta forma não é legal, dado que temos mais de uma aplicacao na barra de tarefas. 
+        Dê preferencia por fazer a dinamica de telas usando JDialog como acima.
+       
         FrFuncionario telaFuncionario = new FrFuncionario(this);
         telaFuncionario.setVisible(true);
         this.setVisible(false);
+        */
     }//GEN-LAST:event_btnCadFuncionarioActionPerformed
 
 

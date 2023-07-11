@@ -17,7 +17,6 @@ import model.exceptions.ProfessorException;
 public class ProfessorController {
 
     private ProfessorDAO repositorio;
-    //List<Professor> lista; //enquanto nao usamos bd ou arquivo
 
     public ProfessorController() {
         repositorio = new ProfessorDAO();

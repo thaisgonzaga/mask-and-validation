@@ -7,11 +7,9 @@ package com.ifcoder.projetoescola_jpa.view;
 
 import com.ifcoder.projetoescola_jpa.controller.AlunoController;
 import com.ifcoder.projetoescola_jpa.model.Aluno;
-import com.ifcoder.projetoescola_jpa.model.valid.ValidatePessoaFisica;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import model.exceptions.AlunoException;
@@ -21,14 +19,13 @@ import model.exceptions.ProfessorException;
  *
  * @author joserui
  */
-public class FrAluno extends javax.swing.JFrame {
+public class FrAluno extends javax.swing.JDialog {
 
-    JFrame telaAnterior;
     AlunoController alunoController;
     int idAlunoEditando;
 
-    public FrAluno(JFrame telaQueChamou) {
-        this.telaAnterior = telaQueChamou;
+    public FrAluno(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         
         alunoController = new AlunoController();
         idAlunoEditando = -1;
@@ -113,11 +110,7 @@ public class FrAluno extends javax.swing.JFrame {
         grdAlunos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
+        setTitle("Usando JDBC SQLite");
 
         jLabel1.setFont(new java.awt.Font("Fira Sans", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -380,11 +373,6 @@ public class FrAluno extends javax.swing.JFrame {
             btnEditarActionPerformed(null);
         }
     }//GEN-LAST:event_grdAlunosMouseClicked
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        this.telaAnterior.setVisible(true);
-    }//GEN-LAST:event_formWindowClosed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

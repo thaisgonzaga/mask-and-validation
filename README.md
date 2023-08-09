@@ -1,51 +1,42 @@
-# ProjetoDacc Maven With Db
-- Este projeto é continuação da disciplina de Orientação e Objetos
-- Agora vamos melhorá-lo com:
-    - Projeto Maven
-    - Estruturação da arquitetura
-    - Banco de dados
-    - Framework JPA-Hibernate
+# ProjetoDacc_JPA: Java Swing Application
 
-### Maven
-- Por ser um projeto Maven (gerenciador de dependencias atual) fique atento a algumas configurações no arquivo POM.xml
-- Todas as dependencias que seu projeto serão colocadas neste arquivo XML 
-- Caso necessite de alguma outra busque no repositorio central 
-- https://search.maven.org/ ou https://mvnrepository.com/
+Este projeto é uma continuação da disciplina de Orientação a Objetos, agora com foco em aprimoramentos e novas funcionalidades. Confira os principais pontos de destaque:
 
-### Projeto Escola
-- Como é um projeto didático:
-- O cadastro de Professor:
-    - Está usando arquivo texto
-- O cadastro de Aluno: 
-    - Está usando banco de dados sqlite
-- O cadastro de Funcionario:
-    - Está usando JPA-Hibernate
-    - Usando o banco de dados Mysql
-    - Por comodidade não coloquei Funcionario como descendente de Pessoa
+## Novidades e Melhorias
+- Integração com o **Maven** para gerenciamento de dependências.
+- Estruturação refinada da arquitetura.
+- Implementação de banco de dados.
+- Adoção do framework JPA-Hibernate.
 
-### Padrão MVC
-- Como estamos utilizando o padrão MVC, é possível perceber como as camadas VIEW e CONTROLLER permanecem 
-inalteradas nas diferentes abordagens
+## Gerenciamento de Dependências com Maven
+- Utilizamos o Maven como gerenciador de dependências do projeto. 
+- As dependências estão especificadas no arquivo `POM.xml`.
+- Se precisar adicionar novas dependências, consulte o [repositório central Maven](https://search.maven.org/) ou o [mvnrepository](https://mvnrepository.com/).
 
-### Padrão Factory
-- Está sendo utilizado tanto na conexão com o DB Sqlite 
-- Quanto na criação EntityManager do Hibernate
+## Projeto Escola: Estrutura Didática
+- **Cadastro de Professor**: Utiliza armazenamento em arquivo texto.
+- **Cadastro de Aluno**: Adota o banco de dados SQLite.
+- **Cadastro de Funcionário**:
+  - Implementado com JPA-Hibernate.
+  - Utiliza o banco de dados MySQL.
+  - Nota: Por simplicidade, a entidade "Funcionário" não foi derivada da entidade "Pessoa".
 
-### Herança, interface e polimorfismo
-- Estes conceitos estão sendo utilizados na camada MODEL, especificamente DAO
-- Exatamente para que você veja como as camadas VIEW e CONTROLLER permanecem intáctas quando se tem uma camada MODEL padronizada;
+## Padrão MVC
+O padrão MVC foi adotado, o que permite uma clara separação entre as camadas VIEW e CONTROLLER. Esta estruturação garante que essas camadas permaneçam consistentes, independentemente das abordagens utilizadas na camada MODEL.
 
-### Hibernate e Mysql
-- O hibernate está configurado para funcionar com classe funcionario.
-- Este é um exemplo didático
-- Atenção: Neste ponto estamos usando o banco de dados Mysql
-	- Aqui o banco de dados foi alterado apenas por questões didáticas. Para que o aluno veja uma forma diferente de fazer a mesma coisa.
-	- Para funcionar esta parte no seu computador, voce deve ter instalado e configurado o Mysql na sua maquina. 
-	- É necessário criar um banco de dados com o nome 'db001' vazio, sem nada que o JPA-Hibernate construirá as tabelas necessárias para você :)
+## Padrão Factory
+Estamos utilizando o padrão Factory tanto para conexões com o banco de dados SQLite quanto para a criação do `EntityManager` do Hibernate.
 
-- Caso queira mudar o nome do banco de dados:
-	- Basta alterar o nome no arquivo persistence.xml
-	- 
+## Conceitos OOP
+Os conceitos de Herança, Interface e Polimorfismo estão presentes na camada MODEL, especificamente no DAO. Isso evidencia como uma camada MODEL bem estruturada mantém as camadas VIEW e CONTROLLER consistentes e desacopladas.
+
+## Hibernate e MySQL
+- O Hibernate está configurado especificamente para a classe "Funcionário".
+- Este é um exemplo puramente didático.
+- **Atenção**:
+  - Estamos utilizando o banco de dados MySQL. Se você deseja executar esta parte do projeto, certifique-se de ter o MySQL instalado e configurado em sua máquina.
+  - Crie um banco de dados chamado 'db001'. O JPA-Hibernate cuidará da criação das tabelas necessárias.
+  - Se desejar alterar o nome do banco de dados, modifique o arquivo `persistence.xml`.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -67,4 +58,8 @@ inalteradas nas diferentes abordagens
   </persistence-unit>
 </persistence>
 ```
+
+## Conclusão
+Esperamos que este projeto sirva como uma referência valiosa para seus estudos e desenvolvimento em Java Swing com integração ao JPA-Hibernate. Qualquer feedback ou contribuição é muito bem-vindo!
+
 

@@ -5,7 +5,6 @@
  */
 package com.ifcoder.projetodacc_jpa.view;
 
-
 import com.ifcoder.projetodacc_jpa.controller.FuncionarioController;
 import com.ifcoder.projetodacc_jpa.model.Funcionario;
 import com.ifcoder.projetodacc_jpa.model.Professor;
@@ -265,6 +264,9 @@ public class FrFuncionario extends javax.swing.JDialog {
                 funcionarioController.cadastrarFuncionario(edtNome.getText(), edtEmail.getText());
             }
 
+            //Comando bastante importante
+            this.idFuncionarioEditando = -1;
+
             funcionarioController.atualizarTabela(grdAlunos);
             this.habilitarCampos(false);
             this.limparCampos();
@@ -275,6 +277,9 @@ public class FrFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        //Comando bastante importante
+        this.idFuncionarioEditando = -1;
+
         this.limparCampos();
         this.habilitarCampos(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -333,17 +338,17 @@ public class FrFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_grdAlunosMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         conectarAPIOnline();
-         //Tem que alterar o API da nossa maquina la na hospedagem. Pois a API faz uso online
+        conectarAPIOnline();
+        //Tem que alterar o API da nossa maquina la na hospedagem. Pois a API faz uso online
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void conectarAPIOnline(){
+    public void conectarAPIOnline() {
         try {
             String token = "your_auth_token";  // Substitua pelo seu token de autenticação.
             String apiUrl = "http://localhost:8080/professores/";  // Substitua pela URL da sua API.
 
-            HttpResponse<List<Professor>> response;                   
-            response = Unirest.get(apiUrl)                   
+            HttpResponse<List<Professor>> response;
+            response = Unirest.get(apiUrl)
                     .header("Content-Type", "application/json")
                     .asObject(new kong.unirest.GenericType<List<Professor>>() {
                     });
@@ -353,10 +358,10 @@ public class FrFuncionario extends javax.swing.JDialog {
                 List<Professor> students = response.getBody();
                 texto = "Retrieved " + students.size() + " professores.\n";
                 for (Professor student : students) {
-                    texto += "Name: " + student.getNome() + ", Cpf: " + student.getCpf()+ "\n";
+                    texto += "Name: " + student.getNome() + ", Cpf: " + student.getCpf() + "\n";
                 }
             } else {
-                texto += "Error retrieving students. Status: " + response.getStatus()+ "\n";
+                texto += "Error retrieving students. Status: " + response.getStatus() + "\n";
             }
             //jTextArea1.setText(texto);
         } catch (RuntimeException e) {

@@ -23,12 +23,12 @@ Este projeto pertence a disciplina LABORATORIO DE PROGRAMAÇÃO DE SISTEMAS.
   - Implementado com JPA-Hibernate.
   - Utiliza o banco de dados MySQL.
   - Nota: Por simplicidade, a entidade "Funcionário" não foi derivada da entidade "Pessoa".
-![Abordagens utilizadas](./assets/TresAbordagens-MVC.png)
+![Abordagens utilizadas](./src/main/resources/imagens/assets/TresAbordagens-MVC.png)
 
 
 ## Padrão MVC
 O padrão MVC foi adotado, o que permite uma clara separação entre as camadas VIEW e CONTROLLER. Esta estruturação garante que essas camadas permaneçam consistentes, independentemente das abordagens utilizadas na camada MODEL.
-![Abordagens utilizadas](./assets/cadastros.png)
+![Abordagens utilizadas](./src/main/resources/imagens/assets/cadastros.png)
 
 
 ## Padrão Factory

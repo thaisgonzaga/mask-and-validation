@@ -1,11 +1,14 @@
-# ProjetoDacc_JPA: Java Swing Application
+# ProjetoDacc_LPS: Java Swing Application
 
-Este projeto é uma continuação da disciplina de Orientação a Objetos, agora com foco em aprimoramentos e novas funcionalidades. Confira os principais pontos de destaque:
+Este projeto pertence a disciplina LABORATORIO DE PROGRAMAÇÃO DE SISTEMAS.
+- Ele parte do ponto de chegada da disciplina de Orientação a Objetos
+- Com foco em aprimoramentos, frameworks e novas funcionalidades. 
+- Confira os principais pontos de destaque:
 
 ## Novidades e Melhorias
-- Integração com o **Maven** para gerenciamento de dependências.
-- Estruturação refinada da arquitetura.
-- Implementação de banco de dados.
+- Utilização do **Maven** para gerenciamento de dependências.
+- Utilização do padrão MVC
+- Implementação com banco de dados usando JDBC.
 - Adoção do framework JPA-Hibernate.
 
 ## Gerenciamento de Dependências com Maven
@@ -15,19 +18,23 @@ Este projeto é uma continuação da disciplina de Orientação a Objetos, agora
 
 ## Projeto Escola: Estrutura Didática
 - **Cadastro de Professor**: Utiliza armazenamento em arquivo texto.
-- **Cadastro de Aluno**: Adota o banco de dados SQLite.
+- **Cadastro de Aluno**: Adota o banco de dados SQLite com a tecnologia JDBC.
 - **Cadastro de Funcionário**:
   - Implementado com JPA-Hibernate.
   - Utiliza o banco de dados MySQL.
   - Nota: Por simplicidade, a entidade "Funcionário" não foi derivada da entidade "Pessoa".
+![Abordagens utilizadas](./assets/TresAbordagens-MVC.png)
+
 
 ## Padrão MVC
 O padrão MVC foi adotado, o que permite uma clara separação entre as camadas VIEW e CONTROLLER. Esta estruturação garante que essas camadas permaneçam consistentes, independentemente das abordagens utilizadas na camada MODEL.
+![Abordagens utilizadas](./assets/cadastros.png)
+
 
 ## Padrão Factory
 Estamos utilizando o padrão Factory tanto para conexões com o banco de dados SQLite quanto para a criação do `EntityManager` do Hibernate.
 
-## Conceitos OOP
+## Conceitos Orientação a Objetos
 Os conceitos de Herança, Interface e Polimorfismo estão presentes na camada MODEL, especificamente no DAO. Isso evidencia como uma camada MODEL bem estruturada mantém as camadas VIEW e CONTROLLER consistentes e desacopladas.
 
 ## Hibernate e MySQL

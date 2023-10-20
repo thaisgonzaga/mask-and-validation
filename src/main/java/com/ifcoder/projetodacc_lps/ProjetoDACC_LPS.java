@@ -13,9 +13,5 @@ public class ProjetoDACC_LPS {
     public static void main(String[] args) {
         FrMenuPrincipal tela = new FrMenuPrincipal();
         tela.setVisible(true);  
-        
-        Secretaria s = new Secretaria();
-        s.toString();
-        
     }
 }

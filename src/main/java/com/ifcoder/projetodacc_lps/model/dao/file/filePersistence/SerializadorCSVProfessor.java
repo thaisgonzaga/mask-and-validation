@@ -9,13 +9,14 @@ import java.util.List;
  *
  * @author jose
  */
-public class SerializadorCSVProfessor implements ISerializador<Professor> {
+public class SerializadorCSVProfessor implements ISerializador {
     
     // Serializa = Salvar no formato texto
     //Serializa a lista de produtos para uma String no formato CSV
-    public String toFile(List<Professor> lista) {
+    public String toFile(List<Object> lista) {
         String csv = "CPF;Nome;Sexo;Idade;\n";
-        for (Professor professor : lista) {
+        for (Object obj : lista) {
+            Professor professor = (Professor) obj;
             csv += professor.getCpf() + ";" 
                 + professor.getNome()+ ";"
                 + professor.getSexo() + ";"
@@ -25,8 +26,8 @@ public class SerializadorCSVProfessor implements ISerializador<Professor> {
     }
 
     // Deserializa uma String no formato CSV para uma lista de produtos
-    public List<Professor> fromFile(String data) {
-        List<Professor> lista = new ArrayList<>();
+    public List<Object> fromFile(String data) {
+        List<Object> lista = new ArrayList<>();
         
         String[] linhas = data.split("\n");
         // Ignora o cabeçalho

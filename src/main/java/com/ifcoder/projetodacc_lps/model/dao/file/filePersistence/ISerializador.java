@@ -6,8 +6,8 @@ import java.util.List;
  *
  * @author jose
  */
-public interface ISerializador<T> {
-    String toFile(List<T> produtos);
+public interface ISerializador {
+    String toFile(List<Object> lista);
     
-    List<T> fromFile(String data);
+    List<Object> fromFile(String data);
 }

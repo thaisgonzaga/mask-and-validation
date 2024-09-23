@@ -48,7 +48,7 @@ public class AlunoController {
     }
 
     public void atualizarTabela(JTable grd) {
-        List<Aluno> lst = repositorio.findAll();
+        List<Object> lst = repositorio.findAll();
         
         TMCadAluno tmAluno = new TMCadAluno(lst);
         grd.setModel(tmAluno);        

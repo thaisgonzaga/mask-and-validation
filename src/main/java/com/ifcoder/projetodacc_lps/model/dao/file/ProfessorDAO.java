@@ -9,7 +9,6 @@ import com.ifcoder.projetodacc_lps.model.Professor;
 import com.ifcoder.projetodacc_lps.model.dao.IDao;
 import java.util.ArrayList;
 import java.util.List;
-import com.ifcoder.projetodacc_lps.model.exceptions.ProfessorException;
 import com.ifcoder.projetodacc_lps.model.dao.file.filePersistence.FilePersistence;
 import com.ifcoder.projetodacc_lps.model.dao.file.filePersistence.ISerializador;
 import com.ifcoder.projetodacc_lps.model.dao.file.filePersistence.SerializadorCSVProfessor;
@@ -18,10 +17,10 @@ import com.ifcoder.projetodacc_lps.model.dao.file.filePersistence.SerializadorCS
  *
  * @author jose
  */
-public class ProfessorDAO implements IDao<Professor> {
+public class ProfessorDAO implements IDao {
 
-    private List<Professor> lst;
-    private ISerializador<Professor> serializador;
+    private List<Object> lst;
+    private ISerializador serializador;
     private FilePersistence filePersistence = new FilePersistence();
     private String pathArquivo = "ListagemProfessores.csv";
     
@@ -32,8 +31,9 @@ public class ProfessorDAO implements IDao<Professor> {
         this.filePersistence = new FilePersistence();
     }
 
-    public void save(Professor prof) {
-       this.lst.add(prof);
+    public void save(Object obj) {
+        Professor prof = (Professor) obj;
+        this.lst.add(prof);
        
        String textoCSV = this.serializador.toFile(lst);
        this.filePersistence.saveToFile(textoCSV, pathArquivo);
@@ -46,7 +46,8 @@ public class ProfessorDAO implements IDao<Professor> {
      * @return Referencia para o professor na lstProfessores
      */
     public Professor findByCpf(String cpf){
-        for(Professor prof: this.lst){
+        for(Object obj: this.lst){
+            Professor prof = (Professor) obj;
             if(prof.getCpf().equals(cpf))
                 return prof;
         }
@@ -55,9 +56,12 @@ public class ProfessorDAO implements IDao<Professor> {
     }
    
 
-    public Professor find(Professor obj) {
-        for (Professor prof : this.lst) {
-            if (prof.equals(obj)) {
+    public Object find(Object obj) {
+        Professor profProcurado = (Professor) obj;
+        
+        for(Object obj_i : this.lst) {
+            Professor prof  = (Professor) obj_i;
+            if (prof.equals(profProcurado)) {
                 return prof;
             }
         }
@@ -66,7 +70,7 @@ public class ProfessorDAO implements IDao<Professor> {
     }
     
     @Override
-    public List<Professor> findAll() {
+    public List<Object> findAll() {
         String textoLido = this.filePersistence.loadFromFile(pathArquivo);
         this.lst = serializador.fromFile(textoLido);
         
@@ -81,8 +85,9 @@ public class ProfessorDAO implements IDao<Professor> {
      * @return
      */
     @Override
-    public boolean delete(Professor obj) {
-        Professor profProcurado = this.findByCpf(obj.getCpf());
+    public boolean delete(Object obj) {
+        Professor prof = (Professor) obj;
+        Professor profProcurado = this.findByCpf(prof.getCpf());
         
         if(profProcurado == null)
             return false;
@@ -110,10 +115,12 @@ public class ProfessorDAO implements IDao<Professor> {
      * @param obj 
      */
     @Override
-    public void update(Professor obj) {
-        for(Professor prof: this.lst){
-            if(prof.getCpf().equals(obj.getCpf())){
-                prof.copiar(obj);
+    public void update(Object obj) {
+        Professor prof = (Professor) obj;
+        for(Object obj_i: this.lst){
+            Professor profCorrente = (Professor) obj_i;
+            if(profCorrente.getCpf().equals(prof.getCpf())){
+                profCorrente.copiar(prof);
                 
                 String textoCSV = this.serializador.toFile(lst);
                 this.filePersistence.saveToFile(textoCSV, pathArquivo);

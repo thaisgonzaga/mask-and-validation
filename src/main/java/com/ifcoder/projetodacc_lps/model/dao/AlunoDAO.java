@@ -18,7 +18,7 @@ import java.sql.SQLException;
  *
  * @author jose
  */
-public class AlunoDAO implements IDao<Aluno> {
+public class AlunoDAO implements IDao {
     
     protected Connection connection;
     private PreparedStatement statement;
@@ -29,7 +29,7 @@ public class AlunoDAO implements IDao<Aluno> {
     }
 
     @Override
-    public void save(Aluno obj) {
+    public void save(Object obj) {
         Aluno aluno = (Aluno) obj;
 
         sql = " INSERT INTO "
@@ -56,8 +56,8 @@ public class AlunoDAO implements IDao<Aluno> {
     }
 
     @Override
-    public void update(Aluno aluno) {
-        //Aluno aluno = (Aluno) obj;
+    public void update(Object obj) {
+        Aluno aluno = (Aluno) obj;
 
         sql = " UPDATE aluno "
                 + " SET nome=?, sexo=?, idade=?, matricula=?, anoIngresso=? "
@@ -86,8 +86,8 @@ public class AlunoDAO implements IDao<Aluno> {
     }
 
     @Override
-    public List<Aluno> findAll() {
-        List<Aluno> list = new ArrayList<>();
+    public List<Object> findAll() {
+        List<Object> list = new ArrayList<>();
 
         sql = " SELECT * FROM aluno ORDER BY upper(nome) ";
         try {
@@ -115,7 +115,7 @@ public class AlunoDAO implements IDao<Aluno> {
     }
 
     @Override
-    public Aluno find(Aluno obj) {
+    public Object find(Object obj) {
         Aluno aluno = (Aluno) obj;
 
         sql = " SELECT * FROM aluno WHERE id = ? ";
@@ -190,8 +190,8 @@ public class AlunoDAO implements IDao<Aluno> {
      * @return
      */
     @Override
-    public boolean delete(Aluno aluno) {
-        //Aluno aluno = (Aluno) obj;
+    public boolean delete(Object obj) {
+        Aluno aluno = (Aluno) obj;
 
         sql = " DELETE FROM aluno WHERE id = ? ";
         try {

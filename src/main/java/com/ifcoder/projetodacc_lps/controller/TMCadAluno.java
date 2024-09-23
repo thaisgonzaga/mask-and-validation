@@ -15,14 +15,14 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TMCadAluno extends AbstractTableModel {
 
-    private List<Object> lista;
+    private List<Aluno> lista;
     
     private final int COL_NOME = 0;   
     private final int COL_SEXO = 1;    
     private final int COL_IDADE = 2;
     private final int COL_MATRICULA = 3;       
 
-    public TMCadAluno(List<Object> lstAlunos) {        
+    public TMCadAluno(List<Aluno> lstAlunos) {        
         lista = lstAlunos;        
     }
 

@@ -1,8 +1,6 @@
 package com.ifcoder.projetodacc_lps.model;
 
-import com.ifcoder.projetodacc_lps.model.dao.file.Csv;
-
-public class Professor extends Pessoa implements Csv {
+public class Professor extends Pessoa {
 
     private String cpf;
 
@@ -43,27 +41,6 @@ public class Professor extends Pessoa implements Csv {
         this.sexo = outro.getSexo();
         this.idade = outro.getIdade();
         this.cpf = outro.getCpf();
-    }
-
-    public String cabecalho() {
-        return "Nome;sexo;idade;cpf\n";
-    }
-
-    @Override
-    public String atributoToCSV() {
-        String aux = this.nome + ";" + this.sexo + ";" + this.idade + ";" + this.cpf + "\n";
-        return aux;
-    }
-
-    @Override
-    public Object CSVToAtributo(String linhaCSV) {
-        String vetor[] = linhaCSV.split(";");
-
-        Professor p = new Professor(vetor[0],
-                vetor[1].charAt(0),
-                Integer.parseInt(vetor[2]),
-                vetor[3]);
-        return p;
     }
 
     public String getCpf() {

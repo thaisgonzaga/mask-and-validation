@@ -37,8 +37,9 @@ public class ProfessorController {
     public void atualizarProfessor(String cpfOriginal, String nome, String sexo, String idade, String cpf) {
         ValidateProfessor valid = new ValidateProfessor();
         Professor novoProfessor = valid.validacao(nome, sexo, idade, cpf);
+        novoProfessor.setCpf(cpfOriginal);
         
-        repositorio.update(cpfOriginal, novoProfessor);
+        repositorio.update(novoProfessor);
     }
 
     public Professor buscarProfessor(String cpf) {

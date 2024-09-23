@@ -7,13 +7,15 @@ import java.util.List;
  *
  * @author jose
  */
-public interface IDao {
+public interface IDao<T> {
     
-    public void save(Object obj);
+    public void save(T obj);
     
-    public boolean delete(Object obj);
+    public void update(T obj);
+    
+    public boolean delete(T obj);
             
-    public Object find(Object obj);
+    public T find(T obj);
         
-    public List<Object> findAll();
+    public List<T> findAll();
 }

@@ -9,6 +9,7 @@ import com.ifcoder.projetodacc_lps.model.Professor;
 import com.ifcoder.projetodacc_lps.model.dao.file.ProfessorDAO;
 import com.ifcoder.projetodacc_lps.model.valid.ValidateProfessor;
 import com.ifcoder.projetodacc_lps.model.exceptions.ProfessorException;
+import com.ifcoder.projetodacc_lps.model.valid.ValidatePessoaFisica;
 
 /**
  *
@@ -25,6 +26,9 @@ public class ProfessorController {
     public void cadastrarProfessor(String nome, String sexo, String idade, String cpf) {
         ValidateProfessor valid = new ValidateProfessor();
         Professor novoProfessor = valid.validacao(nome, sexo, idade, cpf);
+        ValidatePessoaFisica validCPF = new ValidatePessoaFisica();
+        if(!validCPF.validaCPF(cpf))
+            throw new ProfessorException("Error - CPF inválido.");
         
 
         if (repositorio.findByCpf(cpf) == null) {

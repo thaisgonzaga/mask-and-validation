@@ -11,6 +11,7 @@ import com.ifcoder.projetodacc_lps.model.valid.ValidateAluno;
 import java.util.List;
 import javax.swing.JTable;
 import com.ifcoder.projetodacc_lps.model.exceptions.AlunoException;
+import com.ifcoder.projetodacc_lps.model.valid.ValidateMatricula;
 
 /**
  *
@@ -27,6 +28,9 @@ public class AlunoController {
     public void cadastrarAluno(String nome, String sexo, String idade, String matricula, String anoIngresso) {
         ValidateAluno valid = new ValidateAluno();
         Aluno novoAluno = valid.validaCamposEntrada(nome, sexo, idade, matricula, anoIngresso);
+        ValidateMatricula validMatricula = new ValidateMatricula();
+        if(!validMatricula.validaMatricula(matricula))
+            throw new AlunoException("Error - Matricula inválida.");
 
         if (repositorio.findByMatricula(matricula) == null) {
             repositorio.save(novoAluno);

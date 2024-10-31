@@ -149,19 +149,19 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblNome2" min="-2" pref="38" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="edtCPF" min="-2" pref="139" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblSexo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="edtSexo" min="-2" pref="138" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="lblNome2" min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="edtCPF" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="lblNome1" min="-2" pref="53" max="-2" attributes="0"/>
@@ -174,7 +174,7 @@
                           <Component id="edtNome" min="-2" pref="331" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="102" max="32767" attributes="0"/>
+                  <EmptySpace pref="111" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -184,17 +184,19 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblNome2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="edtCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="edtNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edtCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="14" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblSexo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="edtSexo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="lblNome1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="edtIdade" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblSexo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="edtSexo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -207,8 +209,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="CPF:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="edtCPF">
         </Component>
         <Component class="javax.swing.JLabel" name="lblNome">
           <Properties>
@@ -230,6 +230,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="edtIdade">
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="edtCPF">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtCPFActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

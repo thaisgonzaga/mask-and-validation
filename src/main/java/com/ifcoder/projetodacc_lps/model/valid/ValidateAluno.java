@@ -33,6 +33,7 @@ public class ValidateAluno {
         idadeInt = Integer.parseInt(idade);
         aluno.setIdade(idadeInt);        
 
+        ValidateMatricula validMatricula = new ValidateMatricula();
         if(matricula.isEmpty())
             throw new AlunoException("Error - Campo vazio: 'matricula'.");
         aluno.setMatricula(matricula);

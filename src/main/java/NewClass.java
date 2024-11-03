@@ -7,6 +7,6 @@
  *
  * @author thais
  */
-public class NewClass {
+public class TelaLogin {
     
 }
